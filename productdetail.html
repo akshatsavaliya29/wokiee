@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="Viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - Wokiee </title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e197c9225b.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+    <!---------------------HEADER SECTION---------------->
+
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" width="125px"></a>
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </nav>
+            <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+            <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+        </div>
+    </div>
+
+    <!----------SINGLE PRODUCT DETAILS------------->
+    <div class="small-container single-product">
+        <div class="row">
+            <div class="col-2">
+                <img id="product-image" class="main-product-img" src="" alt="Product Image">
+            </div>
+            <div class="col-2">
+                <h1 id="product-name"></h1>
+                <h4 id="product-price"></h4>
+                <p id="product-description"></p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        // Function to get URL parameters
+        // Fconst 
+        document.addEventListener("DOMContentLoaded", function () {
+    // Product data
+    const products = {
+        1: {
+            name: "Red Printed T-Shirt",
+            price: 1500.00,
+            image: "images/product-1.jpg",
+            description: "Stylish summer wardrobe upgrade...",
+        },
+        2: {
+            name: "HRX Sports Shoes",
+            price: 7000.00,
+            image: "images/product-2.jpg",
+            description: "Lightweight sports shoes...",
+        },
+        3: {
+            name: "HRX Gray Trackpants",
+            price: 1550.00,
+            image: "images/product-3.jpg",
+            description: "Comfortable and stylish trackpants...",
+        },
+        4: {
+            name: "Blue Printed T-Shirt",
+            price: 1500.00,
+            image: "images/product-4.jpg",
+            description: "Casual printed t-shirt...",
+        },
+        5: {
+            name: "Puma Gray Sports Shoes",
+            price: 5000.00,
+            image: "images/product-5.jpg",
+            description: "Stylish summer wardrobe upgrade...",
+        },
+        6: {
+            name: "Black Printed T-Shirt",
+            price: 1500.00,
+            image: "images/product-6.jpg",
+            description: "Stylish summer wardrobe upgrade...",
+        },
+        7: {
+            name: "HRX Set of 3 Socks",
+            price: 1000.00,
+            image: "images/product-7.jpg",
+            description: "Stylish summer wardrobe upgrade...",
+        },
+        8: {
+            name: "Black Fossil Watch",
+            price: 5000.00,
+            image: "images/product-8.jpg",
+            description: "Stylish summer wardrobe upgrade...",
+        },
+        9: {
+            name: "Black Sportx Watch",
+            price: 5500.00,
+            image: "images/product-9.jpg",
+            description: "Stylish summer wardrobe upgrade...",
+        },
+        10: {
+            name: "Black HRX Shoes",
+            price: 7000.00,
+            image: "images/product-10.jpg",
+            description: "Stylish summer wardrobe upgrade...",
+        },
+        11: {
+            name: "Gray Nike Shoes",
+            price: 5500.00,
+            image: "images/product-11.jpg",
+            description: "Stylish summer wardrobe upgrade...",
+        },
+        12: {
+            name: "HRX Black Trackpant",
+            price: 4500.00,
+            image: "images/product-12.jpg",
+            description: "Stylish summer wardrobe upgrade...",
+        },
+        13: {
+            name: "Smart Band 4",
+            price: 45000.00,
+            image: "images/exclusive.png",
+            description: "The Mi Smart Band 4 features a 39.9% larger (than Mi Band 3) AMOLED color full-touch display with adjustable brightness, so everything is clear as can be.",
+        }
+    };
+
+    // Get product ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get("id");
+
+    if (!productId || !products[productId]) {
+        document.getElementById("product-name").innerText = "Product Not Found";
+        document.getElementById("product-image").src = "images/default.jpg";
+        return;
+    }
+
+    // Update product details dynamically
+    document.getElementById("product-name").innerText = products[productId].name;
+    document.getElementById("product-price").innerText = "₹" + products[productId].price;
+    document.getElementById("product-image").src = products[productId].image;
+    document.getElementById("product-description").innerText = products[productId].description;
+
+    // Add to Cart Button Functionality
+    document.querySelector(".btn").onclick = function () {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let item = { id: productId, ...products[productId], quantity: 1 };
+
+        let existingItem = cart.find(p => p.id === productId);
+        if (existingItem) {
+            existingItem.quantity += 1; // Increment quantity if item already exists
+        } else {
+            cart.push(item);
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(products[productId].name + " added to cart!");
+    };
+
+    // Debugging Log
+    console.log("Product Loaded:", products[productId]);
+});
+
+        // Debugging
+        console.log("Product Image:", productImage);
+
+    </script>
+
+
+
+
+    <!-------------FOOTER-------------->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Download App for Android and ios mobile phone</p>
+                    <div class="app-logo">
+                        <img src="images/play-store.png">
+                        <img src="images/app-store.png">
+                    </div>
+                </div>
+                <div class="footer-col-2">
+                    <img src="images/logo.png">
+                    <p>Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.
+                    </p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Return Policy</li>
+                        <li>Join Affiliate</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li>Instagram</li>
+                        <li>Youtube</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright-2025 | Wokiee</p>
+        </div>
+    </div>
+
+
+    <!------------JS FOR TOGGLE MENU------------->
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px";
+            }
+            else {
+                MenuItems.style.maxHeight = "0px";
+            }
+        }
+    </script>
+
+    <!---------JS FOR PRODUCT GALLERY-------->
+    <script>
+        var ProductImg = document.getElementById("ProductImg");
+        var SmallImg = document.getElementsByClassName("small-img");
+
+        SmallImg[0].onclick = function () {
+            ProductImg.src = SmallImg[0].src;
+        }
+        SmallImg[1].onclick = function () {
+            ProductImg.src = SmallImg[1].src;
+        }
+        SmallImg[2].onclick = function () {
+            ProductImg.src = SmallImg[2].src;
+        }
+        SmallImg[3].onclick = function () {
+            ProductImg.src = SmallImg[3].src;
+
+        }
+
+        
+
+    </script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
